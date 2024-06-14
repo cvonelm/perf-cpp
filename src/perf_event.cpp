@@ -2,8 +2,8 @@
 //  SPDX-License-Identifier: MIT
 
 #include <perf-cpp/perf_event.hpp>
-#include <perf-cpp/util.hpp>
 #include <perf-cpp/perf_event_instance.hpp>
+#include <perf-cpp/util.hpp>
 
 namespace perf_cpp
 {

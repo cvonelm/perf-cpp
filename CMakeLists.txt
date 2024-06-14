@@ -38,5 +38,7 @@ set_target_properties(perf-cpp PROPERTIES
 	POSITION_INDEPENDENT_CODE ${PERF_CPP_POSITION_INDEPENDENT_CODE}
 )
 
-add_executable(test examples/test.cpp)
-target_link_libraries(test PRIVATE perf-cpp)
+if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
+	add_executable(test examples/test.cpp)
+	target_link_libraries(test PRIVATE perf-cpp)
+endif()

@@ -15,6 +15,7 @@ struct UserspaceReadFormat
     UserspaceReadFormat() : value(0), time_enabled(0), time_running(0)
     {
     }
+
     uint64_t value;
     uint64_t time_enabled;
     uint64_t time_running;

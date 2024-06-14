@@ -58,4 +58,4 @@ std::set<std::uint32_t> parse_list_from_file(std::filesystem::path file)
 
     return std::set<std::uint32_t>();
 }
-}
+} // namespace perf_cpp

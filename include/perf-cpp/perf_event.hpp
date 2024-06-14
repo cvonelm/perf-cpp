@@ -63,10 +63,9 @@ public:
         return memcmp(&lhs.attr_, &rhs.attr_, sizeof(struct perf_event_attr));
     }
 
-
     struct perf_event_attr get_attr() const
     {
-	    return attr_;
+        return attr_;
     }
 
 protected:
