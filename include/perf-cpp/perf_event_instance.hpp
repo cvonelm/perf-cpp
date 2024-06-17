@@ -1,3 +1,4 @@
+#include <perf-cpp/perf_event.hpp>
 #include <perf-cpp/types.hpp>
 
 #include <utility>
@@ -21,8 +22,6 @@ struct UserspaceReadFormat
     uint64_t time_running;
 };
 
-class PerfEvent;
-
 class PerfEventInstance
 {
 public:
@@ -42,7 +41,17 @@ public:
         return *this;
     }
 
-    uint64_t read();
+    template <class T>
+    T read()
+    {
+        uint64_t val;
+        if (::read(fd_, &val, sizeof(val)) != sizeof(uint64_t))
+        {
+            throw std::system_error(errno, std::system_category());
+        }
+
+        return (static_cast<T>(val)) * ev_.get_scale();
+    }
 
     ~PerfEventInstance()
     {
@@ -51,5 +60,6 @@ public:
 
 private:
     int fd_;
+    PerfEvent ev_;
 };
 } // namespace perf_cpp

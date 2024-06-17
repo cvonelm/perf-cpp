@@ -17,7 +17,7 @@ static int perf_event_open(struct perf_event_attr perf_attr, std::variant<Cpu, T
     return syscall(__NR_perf_event_open, &perf_attr, pid, cpuid, group_fd, flags);
 }
 
-PerfEventInstance::PerfEventInstance(PerfEvent ev, std::variant<Cpu, Thread> location)
+PerfEventInstance::PerfEventInstance(PerfEvent ev, std::variant<Cpu, Thread> location) : ev_(ev)
 {
     fd_ = perf_event_open(ev.get_attr(), location, -1, 0);
     if (fd_ == -1)
@@ -26,14 +26,4 @@ PerfEventInstance::PerfEventInstance(PerfEvent ev, std::variant<Cpu, Thread> loc
     }
 }
 
-uint64_t PerfEventInstance::read()
-{
-    uint64_t val;
-    if (::read(fd_, &val, sizeof(val)) != sizeof(uint64_t))
-    {
-        throw std::system_error(errno, std::system_category());
-    }
-
-    return val;
-}
 } // namespace perf_cpp

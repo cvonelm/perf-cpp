@@ -68,9 +68,16 @@ public:
         return attr_;
     }
 
+    double get_scale() const
+    {
+        return scale_;
+    }
+
 protected:
     struct perf_event_attr attr_;
     location_t availability_;
+    double scale_ = 1.0;
+    std::string unit_ = "#";
 };
 
 } // namespace perf_cpp

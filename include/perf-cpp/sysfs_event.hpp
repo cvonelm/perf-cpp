@@ -224,12 +224,8 @@ public:
                      << event_name << "/type=" << attr_.type << ",config=" << attr_.config
                      << ",config1=" << attr_.config1 << std::dec << std::noshowbase << "/";
 
-        scale_ = read_file_or_else<uint64_t>(event_path.replace_extension(".scale"), 1);
+        scale_ = read_file_or_else<double>(event_path.replace_extension(".scale"), 1.0);
         unit_ = read_file_or_else<std::string>(event_path.replace_extension(".unit"), "#");
     }
-
-private:
-    std::string unit_;
-    double scale_;
 };
 } // namespace perf_cpp
