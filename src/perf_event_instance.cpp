@@ -24,6 +24,8 @@ PerfEventInstance::PerfEventInstance(PerfEvent ev, std::variant<Cpu, Thread> loc
     {
         throw std::system_error(errno, std::system_category());
     }
+
+    ioctl(fd_, PERF_EVENT_IOC_ENABLE, 0);
 }
 
 } // namespace perf_cpp
