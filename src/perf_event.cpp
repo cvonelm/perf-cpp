@@ -5,6 +5,11 @@
 #include <perf-cpp/perf_event_instance.hpp>
 #include <perf-cpp/util.hpp>
 
+extern "C"
+{
+#include <sys/ioctl.h>
+}
+
 namespace perf_cpp
 {
 

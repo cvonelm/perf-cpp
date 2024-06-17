@@ -33,11 +33,13 @@ public:
     PerfEventInstance(PerfEventInstance&& other)
     {
         std::swap(fd_, other.fd_);
+        std::swap(ev_, other.ev_);
     }
 
     PerfEventInstance& operator=(PerfEventInstance&& other)
     {
         std::swap(fd_, other.fd_);
+        std::swap(ev_, other.ev_);
         return *this;
     }
 

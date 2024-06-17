@@ -2,6 +2,11 @@
 #include <perf-cpp/perf_event_instance.hpp>
 #include <perf-cpp/util.hpp>
 
+extern "C"
+{
+#include <sys/ioctl.h>
+}
+
 namespace perf_cpp
 {
 static int perf_event_open(struct perf_event_attr perf_attr, std::variant<Cpu, Thread> location,
