@@ -1,3 +1,5 @@
+#pragma once
+
 #include <perf-cpp/perf_event.hpp>
 #include <perf-cpp/types.hpp>
 
