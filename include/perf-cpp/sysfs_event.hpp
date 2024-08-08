@@ -212,7 +212,6 @@ public:
             ev_cfg = kv_match.suffix();
         }
 
-
         scale_ = read_file_or_else<double>(event_path.replace_extension(".scale"), 1.0);
         unit_ = read_file_or_else<std::string>(event_path.replace_extension(".unit"), "#");
     }

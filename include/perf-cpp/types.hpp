@@ -8,9 +8,9 @@ extern "C"
 #include <sys/types.h>
 }
 
-#include <vector>
-#include <string>
 #include <cstdint>
+#include <string>
+#include <vector>
 
 namespace perf_cpp
 {
