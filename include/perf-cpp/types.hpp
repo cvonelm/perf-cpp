@@ -8,10 +8,8 @@ extern "C"
 #include <sys/types.h>
 }
 
-#include <fmt/format.h>
-
 #include <vector>
-
+#include <string>
 #include <cstdint>
 
 namespace perf_cpp
@@ -59,7 +57,7 @@ public:
 
     friend std::ostream& operator<<(std::ostream& stream, const Thread& thread)
     {
-        return stream << fmt::format("thread {}", thread.as_pid_t());
+        return stream << ("thread " + std::to_string(thread.as_pid_t()));
     }
 
     pid_t as_pid_t() const
@@ -105,7 +103,7 @@ public:
 
     friend std::ostream& operator<<(std::ostream& stream, const Cpu& cpu)
     {
-        return stream << fmt::format("{}", cpu.as_int());
+        return stream << std::to_string(cpu.as_int());
     }
 
 private:

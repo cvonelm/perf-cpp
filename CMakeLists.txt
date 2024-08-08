@@ -5,9 +5,6 @@ project(perf-cpp VERSION 0.0.1)
 include(FeatureSummary)
 include(CMakeDependentOption)
 
-add_subdirectory(lib/nitro)
-add_subdirectory(lib/fmt)
-
 if(NOT PERF_CPP_POSITION_INDEPENDENT_CODE)
 	set(PERF_CPP_POSITION_INDEPENDENT_CODE OFF)
 endif()
@@ -24,12 +21,10 @@ set(LIB_SRCS
 
 add_library(perf-cpp ${LIB_SRCS})
 
+set_property(TARGET perf-cpp PROPERTY CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON) #...is required...
+set(CMAKE_CXX_EXTENSIONS OFF) #...without compiler extensions like gnu++11
 
-target_link_libraries(perf-cpp
-	PUBLIC
-	Nitro::env
-	Nitro::log
-	fmt::fmt)
 target_include_directories(perf-cpp
 	PUBLIC
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

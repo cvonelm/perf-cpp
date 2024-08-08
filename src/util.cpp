@@ -2,7 +2,6 @@
 //  SPDX-License-Identifier: MIT
 
 #include <perf-cpp/error.hpp>
-#include <perf-cpp/log.hpp>
 #include <perf-cpp/types.hpp>
 #include <perf-cpp/util.hpp>
 

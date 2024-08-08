@@ -9,7 +9,6 @@
 #include <filesystem>
 #include <fstream>
 #include <perf-cpp/error.hpp>
-#include <perf-cpp/log.hpp>
 #include <perf-cpp/types.hpp>
 #include <regex>
 #include <set>

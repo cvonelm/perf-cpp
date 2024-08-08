@@ -2,7 +2,6 @@
 //  SPDX-License-Identifier: MIT
 
 #include <perf-cpp/event_provider.hpp>
-#include <perf-cpp/log.hpp>
 #include <perf-cpp/perf_event.hpp>
 #include <perf-cpp/sysfs_event.hpp>
 #include <perf-cpp/util.hpp>
@@ -150,8 +149,6 @@ std::map<std::string, PerfEvent> EventProvider::get_pmu_events()
 
 EventProvider::EventProvider()
 {
-    Log::info() << "checking available events...";
-
     event_map_.insert(HW_EVENT_TABLE.begin(), HW_EVENT_TABLE.end());
     event_map_.insert(SW_EVENT_TABLE.begin(), SW_EVENT_TABLE.end());
 

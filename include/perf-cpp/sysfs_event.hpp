@@ -59,8 +59,6 @@ static std::uint64_t parse_bitmask(const std::string& format)
 
         mask |= bits << start;
     }
-    Log::debug() << std::showbase << std::hex << "config mask: " << format << " = " << mask
-                 << std::dec << std::noshowbase;
     return mask;
 }
 
@@ -100,9 +98,6 @@ public:
          *     cpu:cache-misses
          *
          * */
-
-        Log::debug() << "parsing event description: pmu='" << pmu_name << "', event='" << event_name
-                     << "'";
 
         const std::filesystem::path pmu_path =
             std::filesystem::path("/sys/bus/event_source/devices") / pmu_name;
@@ -168,7 +163,6 @@ public:
 
         static const std::regex kv_regex(R"(([^=,]+)(?:=([^,]+))?)");
 
-        Log::debug() << "parsing event configuration: " << ev_cfg;
         std::smatch kv_match;
         while (std::regex_search(ev_cfg, kv_match, kv_regex))
         {
@@ -186,8 +180,6 @@ public:
             }
 
             std::uint64_t val = std::stol(value, nullptr, 0);
-            Log::debug() << "parsing config assignment: " << term << " = " << std::hex
-                         << std::showbase << val << std::dec << std::noshowbase;
             // Parse config terms //
 
             /* Format:  <term>:<bitmask>
@@ -220,9 +212,6 @@ public:
             ev_cfg = kv_match.suffix();
         }
 
-        Log::debug() << std::hex << std::showbase << "parsed event description: " << pmu_name << "/"
-                     << event_name << "/type=" << attr_.type << ",config=" << attr_.config
-                     << ",config1=" << attr_.config1 << std::dec << std::noshowbase << "/";
 
         scale_ = read_file_or_else<double>(event_path.replace_extension(".scale"), 1.0);
         unit_ = read_file_or_else<std::string>(event_path.replace_extension(".unit"), "#");
