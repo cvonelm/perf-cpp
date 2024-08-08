@@ -16,10 +16,11 @@ option(PERF_CPP_POSITION_INDEPENDENT_CODE "Whether to build perf-cpp with positi
 
 
 set(LIB_SRCS 
-	src/event_provider.cpp
-	src/perf_event.cpp
-	src/perf_event_instance.cpp
-	src/util.cpp)
+    src/event_provider.cpp
+    src/perf_event.cpp
+    src/perf_event_instance.cpp
+    src/util.cpp
+    src/topology.cpp)
 
 add_library(perf-cpp ${LIB_SRCS})
 

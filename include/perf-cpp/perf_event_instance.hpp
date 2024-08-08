@@ -63,7 +63,7 @@ public:
     }
 
 private:
-    int fd_;
+    int fd_ = -1;
     PerfEvent ev_;
 };
 } // namespace perf_cpp

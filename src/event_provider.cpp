@@ -28,10 +28,7 @@ extern "C"
 namespace perf_cpp
 {
 
-#define PERF_EVENT(type, id)                                                                       \
-    {                                                                                              \
-        (type), (id), 0                                                                            \
-    }
+#define PERF_EVENT(type, id) { (type), (id), 0 }
 #define PERF_EVENT_HW(id) PERF_EVENT(PERF_TYPE_HARDWARE, PERF_COUNT_HW_##id)
 #define PERF_EVENT_SW(id) PERF_EVENT(PERF_TYPE_SOFTWARE, PERF_COUNT_SW_##id)
 
