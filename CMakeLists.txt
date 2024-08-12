@@ -19,7 +19,7 @@ set(LIB_SRCS
     src/util.cpp
     src/topology.cpp)
 
-add_library(perf-cpp ${LIB_SRCS})
+add_library(perf-cpp SHARED ${LIB_SRCS})
 
 set_property(TARGET perf-cpp PROPERTY CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON) #...is required...
@@ -38,3 +38,12 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 	add_executable(test examples/test.cpp)
 	target_link_libraries(test PRIVATE perf-cpp)
 endif()
+
+install(DIRECTORY
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/perf-cpp
+    DESTINATION include)
+
+install(TARGETS perf-cpp
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
