@@ -2,7 +2,7 @@
  * This file is part of the perf_cpp library.
  * Linux Perf C++ bindings
  *
- * Copyright (c) 2016,
+ * Copyright (c) 2017,
  *    Technische Universitaet Dresden, Germany
  *
  * perf_cpp is free software: you can redistribute it and/or modify
@@ -19,27 +19,24 @@
  * along with perf_cpp.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
-#include <system_error>
+#include <perf-cpp/types.hpp>
 
 namespace perf_cpp
 {
-inline std::system_error make_system_error()
+
+Process Thread::as_process() const
 {
-    return std::system_error(errno, std::system_category());
+    return Process(tid_);
 }
 
-[[noreturn]] inline void throw_errno()
+Thread Process::as_thread() const
 {
-    throw make_system_error();
+    return Thread(pid_);
 }
 
-inline void check_errno(long retval)
+int Cpu::as_int() const
 {
-    if (retval == -1)
-    {
-        throw_errno();
-    }
+    return cpu_;
 }
+
 } // namespace perf_cpp

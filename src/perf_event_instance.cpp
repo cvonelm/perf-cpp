@@ -7,7 +7,7 @@ extern "C"
 #include <sys/ioctl.h>
 }
 
-namespace perf_cpp
+_cpp
 {
 static int perf_event_open(struct perf_event_attr perf_attr, std::variant<Cpu, Thread> location,
                            int group_fd, unsigned long flags)
@@ -33,4 +33,4 @@ PerfEventInstance::PerfEventInstance(PerfEvent ev, std::variant<Cpu, Thread> loc
     ioctl(fd_, PERF_EVENT_IOC_ENABLE, 0);
 }
 
-} // namespace perf_cpp
+} // _cpp

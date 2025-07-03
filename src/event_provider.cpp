@@ -24,7 +24,7 @@ extern "C"
 #include <unistd.h>
 }
 
-namespace perf_cpp
+_cpp
 {
 
 #define PERF_EVENT(type, id) { (type), (id), 0 }
@@ -252,4 +252,4 @@ std::map<std::string, PerfEvent> EventProvider::get_predefined_events()
 
     return events;
 }
-} // namespace perf_cpp
+} // _cpp

@@ -1,0 +1,21 @@
+// Predefined events which are only present in more modern kernels src/perf/event_resolver.cpp
+
+#cmakedefine HAVE_PERF_EVENT_STALLED_CYCLES_FRONTEND
+
+#cmakedefine HAVE_PERF_EVENT_STALLED_CYCLES_BACKEND
+
+#cmakedefine HAVE_PERF_EVENT_REF_CYCLES
+
+#cmakedefine HAVE_PERF_EVENT_ALIGNMENT_FAULTS
+
+#cmakedefine HAVE_PERF_EVENT_EMULATION_FAULTS
+
+#cmakedefine HAVE_PERF_EVENT_CACHE_NODE
+
+#cmakedefine HAVE_PERF_EVENT_DUMMY
+
+#cmakedefine HAVE_PERF_EVENT_BPF_OUTPUT
+
+#cmakedefine HAVE_PERF_EVENT_CGROUP_SWITCHES
+
+#cmakedefine HAVE_PERF_RECORD_LOST_SAMPLES
