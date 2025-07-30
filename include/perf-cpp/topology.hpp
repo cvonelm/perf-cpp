@@ -103,16 +103,30 @@ public:
         return cpu_to_core_.at(cpu);
     }
 
+    const std::set<Core>& cores() const
+    {
+        return cores_;
+    }
+
     const std::set<Package>& packages() const
     {
         return packages_;
     }
 
-    Package package_of(Cpu cpu) const
-    {
-        return cpu_to_package_.at(cpu);
-    }
+    template <typename T>
+    Package package_of(T t) const;
 
+    Cpu measuring_cpu_for_core(Core core) const
+    {
+        auto core_it = std::find_if(cpu_to_core_.begin(), cpu_to_core_.end(),
+                                    [core](auto elem) { return elem.second == core; });
+
+        if (core_it != cpu_to_core_.end())
+        {
+            return core_it->first;
+        }
+        return Cpu::invalid();
+    }
     Cpu measuring_cpu_for_package(Package package) const
     {
         auto package_it = std::find_if(cpu_to_package_.begin(), cpu_to_package_.end(),
@@ -125,10 +139,24 @@ public:
         return Cpu::invalid();
     }
 
+    Cpu measuring_core_for_cpu(Core core) const
+    {
+        auto core_it = std::find_if(cpu_to_core_.begin(), cpu_to_core_.end(),
+                                    [core](auto elem) { return elem.second == core; });
+
+        if (core_it != cpu_to_core_.end())
+        {
+            return core_it->first;
+        }
+        return Cpu::invalid();
+    }
+
 private:
     std::set<Cpu> cpus_;
+    std::set<Core> cores_;
     std::set<Package> packages_;
     std::map<Cpu, Core> cpu_to_core_;
+    std::map<Core, Package> core_to_package_;
     std::map<Cpu, Package> cpu_to_package_;
 
     bool hypervised_ = false;

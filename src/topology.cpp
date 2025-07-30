@@ -1,6 +1,9 @@
+#include <perf-cpp/types.hpp>
+#include <fmt/format.h>
 #include <perf-cpp/topology.hpp>
 #include <perf-cpp/util.hpp>
 
+#include <iostream>
 namespace perf_cpp
 {
 
@@ -22,8 +25,10 @@ void Topology::read_proc()
         core_stream >> core_id;
 
         cpus_.emplace(cpu_id);
+        cores_.emplace(core_id);
         packages_.emplace(package_id);
-        cpu_to_core_.emplace(Cpu(cpu_id), Core(core_id, package_id));
+        cpu_to_core_.emplace(Cpu(cpu_id), Core(core_id));
+        core_to_package_.emplace(Core(core_id), Package(package_id));
         cpu_to_package_.emplace(Cpu(cpu_id), Package(package_id));
     }
 
@@ -44,4 +49,15 @@ void Topology::read_proc()
     }
 }
 
+template <>
+Package Topology::package_of(Cpu cpu) const
+{
+    return cpu_to_package_.at(cpu);
+}
+
+template <>
+Package Topology::package_of(Core core) const
+{
+    return core_to_package_.at(core);
+}
 } // namespace perf_cpp
