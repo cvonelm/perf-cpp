@@ -6,9 +6,9 @@ SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
 include(FeatureSummary)
 include(CMakeDependentOption)
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 include(cmake/CheckNameExists.cmake)
 
-add_subdirectory(lib/fmt)
 
 set(LIB_SRCS 
     src/event_attr.cpp
@@ -20,12 +20,29 @@ set(LIB_SRCS
 
 add_library(perf-cpp SHARED ${LIB_SRCS})
 
-target_link_libraries(perf-cpp PRIVATE fmt::fmt-header-only)
+find_package(PkgConfig)
+if(PKG_CONFIG_FOUND)
+    pkg_check_modules(fmt
+        IMPORTED_TARGET
+        fmt)
+    if(fmt_FOUND)
+        message(STATUS "using system fmtlib")
+        target_link_libraries(perf-cpp PUBLIC PkgConfig::fmt)
+    else()
+        message(STATUS "using vendored fmtlib")
+        add_subdirectory(lib/fmt)
+        target_link_libraries(perf-cpp PUBLIC fmt::fmt)
+    endif()
+else()
+    message("USING BUILTIN FMTLIB")
+    add_subdirectory(lib/fmt)
+    target_link_libraries(perf-cpp PUBLIC fmt::fmt)
+endif()
 
 target_include_directories(perf-cpp
 	PUBLIC
     ${CMAKE_CURRENT_BINARY_DIR}/include
-	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 # check if specific perf events are available
@@ -44,11 +61,6 @@ configure_file(include/perf-cpp/build_config.hpp.in include/perf-cpp/build_confi
 set_property(TARGET perf-cpp PROPERTY CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON) #...is required...
 set(CMAKE_CXX_EXTENSIONS OFF) #...without compiler extensions like gnu++11
-
-if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
-	add_executable(test examples/test.cpp)
-	target_link_libraries(test PRIVATE perf-cpp fmt::fmt-header-only)
-endif()
 
 install(DIRECTORY
     ${CMAKE_CURRENT_SOURCE_DIR}/include/perf-cpp
